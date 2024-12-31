@@ -19,14 +19,11 @@ async def ParseRecipeFromWebpage(website_parser_dto: WebsiteParserDto):
         return
     
     soup = BeautifulSoup(webPageData, 'html.parser')
-
     title = parseWebpageElements(soup, 'h1')[0]
-
     logger.warning(f'Title is: {title}')
+
     if(title == ''):
-        logging.warning('Website contains no h1 tags, attempting to parse the body')
-        title = parseWebpageElements(soup, 'body')
-        return title
+        logging.warning('Webpage: {website_parser_dto.url} contains no h1 tags, try to parse using different HTML elements')
 
     return formatTitle(title)
 
